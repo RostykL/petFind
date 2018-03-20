@@ -1,5 +1,6 @@
 import React from 'react';
 import {ReactDOM, render} from 'react-dom';
+import axios from 'axios';
 
 import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 import $ from 'jquery';
@@ -9,21 +10,25 @@ import './css/style.css';
 
 import Storage from './components/animalStorage.js';
 
+
+var APIURL = "http://127.0.0.1:8000/api/";
+
+
 class Header extends React.Component{
 	render() {
 		return (
 				<Router>
-				<div>
-            <nav className="navbar navbar-inverse bg-inverse">
-                <div className="container">
-									<Link to="/" className="navbar-brand">PetFinder</Link>
-					      	<Link to="/storage" className="navbar-brand">Storage </Link>
-                </div>
-            </nav>
-              <div className="container">
-	              <Route path="/storage" component={Storage}/>
-              </div>
-       		</div>
+					<div>
+	            <nav className="navbar navbar-inverse bg-inverse">
+	                <div className="container">
+										<Link to="/" className="navbar-brand">PetFinder</Link>
+						      	<Link to="/storage" className="navbar-brand">Storage </Link>
+	                </div>
+	            </nav>
+	              	<Route exact path={"/"} component={PetRegistration} />
+		              <Route path={"/storage"} component={Storage} />
+		              <Route path={"/create"} component={ArticleCreation}/>
+	       	</div>
         </Router>
 		)
 	}
@@ -116,18 +121,57 @@ class HowItWorks extends React.Component {
 	}
 }
 
-class App extends React.Component{
-	render() {
-		return (
-			<div>
-				<Header/>
-				<PetRegistration/>
-			</div>
-		)
-	}	
+// BEGIN	
+class ArticleCreation extends React.Component{
+  constructor(props){
+        super(props)
+        this.state = {};
+        this.state.article = {};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);       
+    }
+
+    componentWillReceiveProps(props){
+      this.setState(
+        {article:props.article}
+      );
+    }
+    handleSubmit(e){
+      e.preventDefault();
+      axios.post(APIURL+'animals', this.state.article)
+    }
+    handleChange(e){
+        var article = this.state.article;
+        article[e.target.name] = e.target.value;
+        this.setState(
+          {article:article}
+        );
+    }
+    render(){
+      return(
+      <div>
+        <h1>Hi</h1>
+          <form onSubmit={this.handleSubmit}>
+              <label> Pet name: 
+                <input name="PetName" type="text" onChange={this.handleChange} />
+              </label>
+              <br/>	
+              <label> Description: 
+                <input name="Description" type="text" onChange={this.handleChange} />
+              </label>
+              <label> Phone: 
+                <input name="Phone" type="text" onChange={this.handleChange} />
+              </label>		
+               <hr/>
+            <input type="submit" value="save"/>
+          </form>
+      </div>
+      )
+    }
 }
+//END
 
 
 render(
-	<App />, 
+	<Header />, 
 	document.getElementById('root'));
