@@ -37,7 +37,7 @@ class PetRegistration extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {inputValueLenght: 0}
-		this.handleLength = this.handleLength.bind(this)
+		this.handleLengthANDGetPetNameValue	 = this.handleLengthANDGetPetNameValue	.bind(this)
 		this.state = {
     	PetName     : "",
     	Description : "",
@@ -45,6 +45,7 @@ class PetRegistration extends React.Component{
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this); 
+    this.SearchByName = this.SearchByName.bind(this); 
 	}
 	// Article Creation method
 	handleChange(e){
@@ -68,11 +69,12 @@ class PetRegistration extends React.Component{
   	axios.post(APIURL+'animals',  this.state.artc);
   	alert("CREATED")
   }
-
   // Article Creation END
 
-	handleLength(e) {
+	handleLengthANDGetPetNameValue(e) {
+		let val = e.target.value;
 	 	let lenInputs = e.target.value.length
+		this.state.usersPetName = e.target.value.toUpperCase()
 		this.setState({
 			inputValueLenght: lenInputs 
 		});
@@ -85,11 +87,33 @@ class PetRegistration extends React.Component{
 
 	SearchByName(e) {
 		e.preventDefault();
+		axios.get(APIURL+'animals').then(res => {
+			let petPetName;
+			this.state.countTrue = 0;
+			res.data.map(pet => {
+				petPetName = pet.petName.toUpperCase();
+				if (this.state.usersPetName == petPetName) {
+					this.setState({
+						countTrue : this.state.countTrue + 1
+					}) 
+				}
+			})	
+		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE`);
+		});
 	}
+	// takeValue(e) {
+	// 	e.preventDefault()
+	// 	let val = e.target.value;
+	// 	this.setState({
+	// 		usersPetName : e.target.value
+	// 	})
+	// 	console.log(this.state.usersPetName)
+	// }
 
 	render() {
 			let button = this.state.inputValueLenght >= 1 ? (
-	      <input className="reg_btn" type="submit" value="Find" onClick={this.SearchByName}/>
+	      // <input className="reg_btn" type="submit" ref="" value="Find" onClick={this.SearchByName}/>
+	      <button className="reg_btn" onClick={this.SearchByName}>Find</button>
 	    ) : (
 	      <input className="reg_btn" type="submit" value="Register" onClick={this.showForm}/>
 	    );
@@ -108,7 +132,7 @@ class PetRegistration extends React.Component{
 								  type="text" 
 								  name="name" 
 								  placeholder="Find by the name"
-								  onChange={this.handleLength} />
+								  onChange={this.handleLengthANDGetPetNameValue} />
 								  {button}
 								</form>
 
