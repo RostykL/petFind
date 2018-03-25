@@ -9,7 +9,6 @@ export default class Storage extends React.Component {
     constructor(props){
         super(props)
         this.state = {};
-
         this.state.storage = [];
     }
     componentDidMount(){
@@ -21,7 +20,6 @@ export default class Storage extends React.Component {
       });
     }
     render(){
-      console.log(this.state.storage)
       return <EveryPet storages={this.state.storage}/>
     }
 }
@@ -34,8 +32,9 @@ class EveryPet extends React.Component {
                   this.props.storages.map((storage, i) => {
                     return <StorageShow storage={storage} key={i}/>
                   })
+
                 }            
-            </div>	
+            </div>  
         )
     }
 }
@@ -44,16 +43,18 @@ class StorageShow extends React.Component {
     render(){
       return (
         <div>
-        <h1>Storage:</h1>
-        
-        <div className="col-8">
-          <div>User:
-            {this.props.storage.petName}
+          <div className="container"> 
+            <h1>Storage:</h1>
+            
+            <div className="col-8">
+              <div>User:
+                {this.props.storage.petName}
+              </div>
+              <div>Description:
+                {this.props.storage.description}
+              </div>
+            </div>
           </div>
-          <div>Description:
-            {this.props.storage.description}
-          </div>
-        </div>
         
         </div>
       )

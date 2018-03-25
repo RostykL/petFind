@@ -9,4 +9,4 @@ class Post(models.Model):
     phone = models.IntegerField(default=0)
 
     def __str__(self):
-    	return self.petName
+    	return self.petName	
