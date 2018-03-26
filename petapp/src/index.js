@@ -68,6 +68,9 @@ class PetRegistration extends React.Component{
     e.preventDefault();
   	axios.post(APIURL+'animals',  this.state.artc);
   	alert("CREATED")
+  	this.refs.PetName.value = "";
+    this.refs.Description.value = "";
+    this.refs.Phone.value = "";
   }
   // Article Creation END
 
@@ -90,32 +93,25 @@ class PetRegistration extends React.Component{
 		axios.get(APIURL+'animals').then(res => {
 			let petPetName;
 			this.state.countTrue = 0;
+			this.state.petIds = 0;
 			res.data.map(pet => {
 				petPetName = pet.petName.toUpperCase();
 				if (this.state.usersPetName == petPetName) {
 					this.setState({
-						countTrue : this.state.countTrue + 1
+						countTrue : this.state.countTrue + 1,
+						petIds : pet.id
 					}) 
 				}
-			})	
+		})	
 		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE`);
 		});
 	}
-	// takeValue(e) {
-	// 	e.preventDefault()
-	// 	let val = e.target.value;
-	// 	this.setState({
-	// 		usersPetName : e.target.value
-	// 	})
-	// 	console.log(this.state.usersPetName)
-	// }
 
 	render() {
 			let button = this.state.inputValueLenght >= 1 ? (
-	      // <input className="reg_btn" type="submit" ref="" value="Find" onClick={this.SearchByName}/>
-	      <button className="reg_btn" onClick={this.SearchByName}>Find</button>
+		      <button className="reg_btn" onClick={this.SearchByName}>Find</button>
 	    ) : (
-	      <input className="reg_btn" type="submit" value="Register" onClick={this.showForm}/>
+	      <input className="reg_btn" type="submit" value="Register"  onClick={this.showForm}/>
 	    );
 		return (
 			<div>
@@ -130,7 +126,7 @@ class PetRegistration extends React.Component{
 								<form>
 								  <input className="reg_input" 
 								  type="text" 
-								  name="name" 
+								  name="findPetByName" 
 								  placeholder="Find by the name"
 								  onChange={this.handleLengthANDGetPetNameValue} />
 								  {button}
@@ -142,7 +138,7 @@ class PetRegistration extends React.Component{
 			              </label>
 			              <br/>	
 			              <label> Phone: 
-			                <input className="reg_input" type="number" ref="Phone" onChange={this.handleChange} />
+			                <input className="reg_input" type="number" ref="Phone" minlength="7" onChange={this.handleChange} />
 			              </label>		
 			              <label> Description: 
 			                <input type="text" ref="Description" onChange={this.handleChange} />

@@ -32,30 +32,32 @@ class EveryPet extends React.Component {
                   this.props.storages.map((storage, i) => {
                     return <StorageShow storage={storage} key={i}/>
                   })
-
                 }            
             </div>  
         )
     }
 }
 
+
 class StorageShow extends React.Component {
     render(){
       return (
         <div>
           <div className="container"> 
-            <h1>Storage:</h1>
-            
-            <div className="col-8">
-              <div>User:
-                {this.props.storage.petName}
-              </div>
-              <div>Description:
-                {this.props.storage.description}
-              </div>
+          <div className="col-2">
+            <div className="pet-block"><span class="pet-name-class">Pet Name:</span> 
+              <span className="rel-pet-name">{this.props.storage.petName}</span>
+            </div>
+            <hr />
+            <div className="desc-block"><span class="description">Description:</span>
+              <span className="rel-pet-desc">{this.props.storage.description}</span>
+              <span className="rel-pet-desc storage-id">{this.props.storage.id}</span>
+            </div>
+            <div className="pet-block"><span class="phone"> Phone:</span>
+              <span className="rel-pet-desc">+(380){this.props.storage.phone}</span>
             </div>
           </div>
-        
+          </div>
         </div>
       )
     }
