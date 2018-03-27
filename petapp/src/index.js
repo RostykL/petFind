@@ -41,7 +41,6 @@ class PetRegistration extends React.Component{
 		this.state = {
     	PetName     : "",
     	Description : "",
-    	Phone       : 0
     	}
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this); 
@@ -51,17 +50,14 @@ class PetRegistration extends React.Component{
 	// Article Creation method
 	handleChange(e){
   		e.preventDefault()
-  		let StrToIntPhone = Number(this.refs.Phone.value);
 	    this.setState({
       	PetName     : this.refs.PetName.value,
       	Description : this.refs.Description.value,
-      	Phone       : StrToIntPhone,
       });
 
       this.state.artc = {
         "description" : this.state.Description,
         "petName"     : this.state.PetName,
-        "phone"       : this.state.Phone
 	    }
  	 }
 
@@ -71,7 +67,6 @@ class PetRegistration extends React.Component{
 	  	alert("CREATED")
 	  	this.refs.PetName.value = "";
 	    this.refs.Description.value = "";
-	    this.refs.Phone.value = "";
 	  }
   	// Article Creation END
 
@@ -138,10 +133,7 @@ class PetRegistration extends React.Component{
 			              <label> Pet name: 
 			                <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
 			              </label>
-			              <br/>	
-			              <label> Phone: 
-			                <input className="reg_input" type="number" ref="Phone" minlength="7" onChange={this.handleChange} />
-			              </label>		
+			              <br/>			
 			              <label> Description: 
 			                <input type="text" ref="Description" onChange={this.handleChange} />
 			              </label>
