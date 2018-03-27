@@ -12,7 +12,7 @@ import Storage from './components/animalStorage.js';
 
 
 var APIURL = "http://127.0.0.1:8000/api/";
-
+let checkingName = 0;
 
 class Header extends React.Component{
 	render() {
@@ -21,12 +21,12 @@ class Header extends React.Component{
 					<div>
 	            <nav className="navbar navbar-inverse bg-inverse">
 	                <div className="container">
-										<Link to="/" className="navbar-brand">PetFinder</Link>
-						      	<Link to="/storage" className="navbar-brand">Storage </Link>
+						<Link to="/" className="navbar-brand">PetFinder</Link>
+						<Link to="/storage" className="navbar-brand">Storage </Link>
 	                </div>
 	            </nav>
 	              	<Route exact path={"/"} component={PetRegistration} />
-		              <Route path={"/storage"} component={Storage} />
+		            <Route path={"/storage"}  render={() => <Storage ids={checkingName} />} />
 	       	</div>
         </Router>
 		)
@@ -37,16 +37,17 @@ class PetRegistration extends React.Component{
 	constructor(props) {
 		super(props)
 		this.state = {inputValueLenght: 0}
-		this.handleLengthANDGetPetNameValue	 = this.handleLengthANDGetPetNameValue	.bind(this)
+		this.handleLengthANDGetPetNameValue	 = this.handleLengthANDGetPetNameValue.bind(this)
 		this.state = {
     	PetName     : "",
     	Description : "",
     	Phone       : 0
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this); 
-    this.SearchByName = this.SearchByName.bind(this); 
-	}
+    	}
+	    this.handleChange = this.handleChange.bind(this);
+	    this.handleSubmit = this.handleSubmit.bind(this); 
+	    this.SearchByName = this.SearchByName.bind(this); 
+		}
+
 	// Article Creation method
 	handleChange(e){
   		e.preventDefault()
@@ -62,17 +63,17 @@ class PetRegistration extends React.Component{
         "petName"     : this.state.PetName,
         "phone"       : this.state.Phone
 	    }
-  }
+ 	 }
 
-  handleSubmit(e){
-    e.preventDefault();
-  	axios.post(APIURL+'animals',  this.state.artc);
-  	alert("CREATED")
-  	this.refs.PetName.value = "";
-    this.refs.Description.value = "";
-    this.refs.Phone.value = "";
-  }
-  // Article Creation END
+	  handleSubmit(e){
+	    e.preventDefault();
+	  	axios.post(APIURL+'animals',  this.state.artc);
+	  	alert("CREATED")
+	  	this.refs.PetName.value = "";
+	    this.refs.Description.value = "";
+	    this.refs.Phone.value = "";
+	  }
+  	// Article Creation END
 
 	handleLengthANDGetPetNameValue(e) {
 		let val = e.target.value;
@@ -91,24 +92,25 @@ class PetRegistration extends React.Component{
 	SearchByName(e) {
 		e.preventDefault();
 		axios.get(APIURL+'animals').then(res => {
-			let petPetName;
+			let petPetName, petPetId;
 			this.state.countTrue = 0;
 			this.state.petIds = 0;
 			res.data.map(pet => {
 				petPetName = pet.petName.toUpperCase();
 				if (this.state.usersPetName == petPetName) {
+					petPetId = pet.id;
 					this.setState({
 						countTrue : this.state.countTrue + 1,
-						petIds : pet.id
+						petIds : petPetId
 					}) 
 				}
 		})	
-		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE`);
-		});
+		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE and your number is ${this.state.petIds}`);		
+		checkingName += this.state.petIds; 
+		})
 	}
-
 	render() {
-			let button = this.state.inputValueLenght >= 1 ? (
+		let button = this.state.inputValueLenght >= 1 ? (
 		      <button className="reg_btn" onClick={this.SearchByName}>Find</button>
 	    ) : (
 	      <input className="reg_btn" type="submit" value="Register"  onClick={this.showForm}/>
@@ -166,7 +168,7 @@ class PetRegistration extends React.Component{
 			</div>
 
 			</div>
-		)
+		) 
 	}
 }
 

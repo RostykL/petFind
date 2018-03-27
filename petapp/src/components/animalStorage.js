@@ -22,6 +22,7 @@ export default class Storage extends React.Component {
     render(){
       return <EveryPet storages={this.state.storage}/>
     }
+
 }
 
 class EveryPet extends React.Component {
@@ -54,7 +55,7 @@ class StorageShow extends React.Component {
               <span className="rel-pet-desc storage-id">{this.props.storage.id}</span>
             </div>
             <div className="pet-block"><span class="phone"> Phone:</span>
-              <span className="rel-pet-desc">+(380){this.props.storage.phone}</span>
+              <span className="rel-pet-desc">+(380){this.props.storage.phone}</span>            
             </div>
           </div>
           </div>
