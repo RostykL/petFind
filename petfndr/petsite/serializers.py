@@ -8,5 +8,4 @@ class PostSerializer(serializers.ModelSerializer):
 			'id',
 			'description',
 			'petName',
-			'phone'
 		)
