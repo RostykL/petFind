@@ -1,11 +1,25 @@
 from rest_framework import serializers
-from .models import Post
+from .models import Pet
 
 class PostSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = Post
+		model = Pet
 		fields = (
 			'id',
 			'description',
-			'petName',
+			'pet_name',
 		)
+
+class PetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pet
+        fields = (
+            'id',
+            'description',
+            'author',
+            'last_seen_place',
+            'prize_for_help',
+            'image',
+            'pet_name',
+        )
+

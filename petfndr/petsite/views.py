@@ -10,12 +10,22 @@ from petsite.forms import SignUpForm
 
 # API 
 class PetCreateList(generics.ListCreateAPIView):
-	queryset = models.Post.objects.all()
+	queryset = models.Pet.objects.all()
 	serializer_class = serializers.PostSerializer
 
 class RetrieveUpdateDestroyPost(generics.RetrieveUpdateDestroyAPIView):
-	queryset = models.Post.objects.all()
+	queryset = models.Pet.objects.all()
 	serializer_class = serializers.PostSerializer    
+
+class PetList(generics.ListAPIView):
+    serializer_class = serializers.PetSerializer
+
+    def get_queryset(self):
+        queryset = models.Pet.objects.all()
+        filterparam = self.request.query_params.get('last_seen_place', None)
+        if filterparam is not None:
+            queryset = queryset.filter(last_seen_place__icontains=filterparam)
+        return queryset
 
 
 # REGISTRATION
