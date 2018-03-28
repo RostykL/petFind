@@ -25,7 +25,7 @@ SECRET_KEY = 'qlm$n(!fa6(=-*)7wz9ac4fgzt*2u=(^6r2^j()d*25wx((=id'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.0.53']
 
 
 # Application definition

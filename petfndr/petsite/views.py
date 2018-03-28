@@ -23,8 +23,9 @@ class PetList(generics.ListAPIView):
     def get_queryset(self):
         queryset = models.Pet.objects.all()
         filterparam = self.request.query_params.get('last_seen_place', None)
+        #filterparam = self.request.query_params.get('pet_name', None)
         if filterparam is not None:
-            queryset = queryset.filter(last_seen_place__icontains=filterparam)
+            queryset = queryset.filter(last_seen_place__icontains=filterparam).order_by('fame')
         return queryset
 
 
