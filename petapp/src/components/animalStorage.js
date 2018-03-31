@@ -47,7 +47,7 @@ class StorageShow extends React.Component {
           <div className="container"> 
           <div className="col-2">
             <div className="pet-block"><span class="pet-name-class">Pet Name:</span> 
-              <span className="rel-pet-name">{this.props.storage.petName}</span>
+              <span className="rel-pet-name">{this.props.storage.pet_name}</span>
             </div>
             <hr />
             <div className="desc-block"><span class="description">Description:</span>
@@ -57,9 +57,7 @@ class StorageShow extends React.Component {
             <div className="desc-block"><span class="description">last seen:</span>
               <span className="rel-pet-desc">{this.props.storage.last_seen_place}</span>
             </div>
-            <div className="desc-block"><span class="description">Date:</span>
-              <span className="rel-pet-desc">{this.props.storage.created_at}</span>
-            </div>
+
           </div>
           </div>
         </div>

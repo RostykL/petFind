@@ -7,11 +7,17 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from petsite.forms import SignUpForm
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 # API 
-class PetCreateList(generics.ListCreateAPIView):
-	queryset = models.Pet.objects.all()
-	serializer_class = serializers.PostSerializer
+class PetCreateList(LoginRequiredMixin, generics.ListCreateAPIView):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+    queryset = models.Pet.objects.all()
+    serializer_class = serializers.PostSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class RetrieveUpdateDestroyPost(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.Pet.objects.all()
