@@ -7,6 +7,7 @@ import $ from 'jquery';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './css/style.css';
+import './sass/style.sass';
 
 import Storage from './components/animalStorage.js';
 
@@ -43,8 +44,8 @@ class PetRegistration extends React.Component{
     	Description : "",
     	}
 	    this.handleChange = this.handleChange.bind(this);
-	    this.handleSubmit = this.handleSubmit.bind(this); 
-	    this.SearchByName = this.SearchByName.bind(this); 
+	    this.handleSubmit = this.handleSubmit.bind(this);
+	    this.SearchByName = this.SearchByName.bind(this);
 		}
 
 	// Article Creation method
@@ -75,9 +76,9 @@ class PetRegistration extends React.Component{
 	 	let lenInputs = e.target.value.length
 		this.state.usersPetName = e.target.value.toUpperCase()
 		this.setState({
-			inputValueLenght: lenInputs 
+			inputValueLenght: lenInputs
 		});
-	}	
+	}
 
 	showForm(e) {
 		e.preventDefault()
@@ -97,11 +98,11 @@ class PetRegistration extends React.Component{
 					this.setState({
 						countTrue : this.state.countTrue + 1,
 						petIds : petPetId
-					}) 
+					})
 				}
-		})	
-		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE and your number is ${this.state.petIds}`);		
-		checkingName += this.state.petIds; 
+		})
+		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE and your number is ${this.state.petIds}`);
+		checkingName += this.state.petIds;
 		})
 	}
 	render() {
@@ -121,20 +122,20 @@ class PetRegistration extends React.Component{
 							<div className="register_animal">
 								<h1>Find & Register </h1>
 								<form>
-								  <input className="reg_input" 
-								  type="text" 
-								  name="findPetByName" 
+								  <input className="reg_input"
+								  type="text"
+								  name="findPetByName"
 								  placeholder="Find by the name"
 								  onChange={this.handleLengthANDGetPetNameValue} />
 								  {button}
 								</form>
 
 								<form onSubmit={this.handleSubmit} className="add_a_new_one">
-			              <label> Pet name: 
+			              <label> Pet name:
 			                <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
 			              </label>
-			              <br/>			
-			              <label> Description: 
+			              <br/>
+			              <label> Description:
 			                <input type="text" ref="Description" onChange={this.handleChange} />
 			              </label>
 			               <hr/>
@@ -143,7 +144,7 @@ class PetRegistration extends React.Component{
 
 							</div>
 					</div>
-				</div>	
+				</div>
 			</div>
 
 			<div className="info_find">
@@ -156,11 +157,11 @@ class PetRegistration extends React.Component{
 								<h1>Image</h1>
 							</div>
 					</div>
-				</div>		
+				</div>
 			</div>
 
 			</div>
-		) 
+		)
 	}
 }
 
