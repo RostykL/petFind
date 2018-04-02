@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import generics
 from . import models
 from . import serializers
@@ -33,6 +34,10 @@ class PetList(generics.ListAPIView):
         if filterparam is not None:
             queryset = queryset.filter(last_seen_place__icontains=filterparam).order_by('fame')
         return queryset
+
+
+def index(request):
+    return render(request, 'index.html', {})
 
 
 # REGISTRATION
