@@ -24,4 +24,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace="rest_framework")),
     path('api/animals/', include('petsite.urls', namespace='petsite')),
     path('signup/', core_views.signup, name='signup'),
+    path('', core_views.index, name='index'),
 ]
