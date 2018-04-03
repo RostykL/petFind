@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Pet
+from django.contrib.auth.models import User
 
 class PostSerializer(serializers.ModelSerializer):
 
@@ -21,5 +22,15 @@ class PetSerializer(serializers.ModelSerializer):
             'prize_for_help',
             'image',
             'pet_name',
+            'author',
+            'description'
         )
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email'
+        )

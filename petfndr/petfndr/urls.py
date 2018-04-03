@@ -21,8 +21,9 @@ app_name="petsite"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls', namespace="rest_framework")),
+    #path('api-auth/', include('rest_framework.urls', namespace="rest_framework")),
     path('api/animals/', include('petsite.urls', namespace='petsite')),
+    path('api/user_info', core_views.UserInfo.as_view()),
     path('signup/', core_views.signup, name='signup'),
     path('', core_views.index, name='index'),
 ]
