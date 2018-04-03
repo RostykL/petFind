@@ -6,6 +6,7 @@ from . import serializers
 # REGISTRATION IMPORTS
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from petsite.forms import SignUpForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -33,6 +34,19 @@ class PetList(generics.ListAPIView):
         #filterparam = self.request.query_params.get('pet_name', None)
         if filterparam is not None:
             queryset = queryset.filter(last_seen_place__icontains=filterparam).order_by('fame')
+        return queryset
+
+class UserInfo(generics.ListAPIView):
+    serializer_class = serializers.UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        filterparam = self.request.query_params.get('id', None)
+        #filterparam = self.request.query_params.get('pet_name', None)
+        if filterparam is not None:
+            queryset = queryset.filter(id=filterparam)
+        else:
+            queryset = None
         return queryset
 
 
