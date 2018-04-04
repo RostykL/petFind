@@ -57,14 +57,16 @@ class PetRegistration extends React.Component{
       });
 
       this.state.artc = {
-        "description" : this.state.Description,
-        "petName"     : this.state.PetName,
+        // "description" : this.state.Description,
+        // "pet_name"    : this.state.PetName,
+        "description": "ffsdddf",
+    	"pet_name": "fsddsf"
 	    }
  	 }
 
 	  handleSubmit(e){
 	    e.preventDefault();
-	  	axios.post(APIURL+'animals',  this.state.artc);
+	  	axios.post(APIURL+'animals/simplified/',  this.state.artc);
 	  	alert("CREATED")
 	  	this.refs.PetName.value = "";
 	    this.refs.Description.value = "";
@@ -115,7 +117,7 @@ class PetRegistration extends React.Component{
 			<div>
 			<div className="registration_container">
 				<div className="container">
-					<div className="wrapper">
+					<div className="wrapper">	
 							<div className="intro_image">
 								<img src={require("./dog")} alt="lost-dog"/>
 							</div>
