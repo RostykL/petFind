@@ -13,6 +13,8 @@ class PostSerializer(serializers.ModelSerializer):
             'author', 
             'description',
             'pet_name',
+            'last_seen_place',
+            'prize_for_help'
         )
 
 class PetSerializer(serializers.ModelSerializer):

@@ -40,8 +40,10 @@ class PetRegistration extends React.Component{
 		this.state = {inputValueLenght: 0}
 		this.handleLengthANDGetPetNameValue	 = this.handleLengthANDGetPetNameValue.bind(this)
 		this.state = {
-    	PetName     : "",
-    	description : "",
+    	PetName     	: "",
+    	description 	: "",
+    	last_seen_place : "",
+    	prize_for_help	: 0,
     	}
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,24 +56,31 @@ class PetRegistration extends React.Component{
 		let currentUserName = $('.currentUserName').text()
   		e.preventDefault()
 	    this.setState({
-      	PetName     : this.refs.PetName.value,
-      	Description : this.refs.Description.value,
+      	PetName     	: this.refs.PetName.value,
+      	Description 	: this.refs.Description.value,
+      	Last_seen_place : this.refs.Last_seen_place.value,
+    	Prize_for_help	: this.refs.Prize_for_help.value,
       });
 
       this.state.artc = {
-      	"postedBy"	  : currentUserName,
-      	"author"      : Number(currentUser),
-        "description" : this.state.Description,
-        "pet_name"    : this.state.PetName,
+      	"postedBy"	  		: currentUserName,
+      	"author"      		: Number(currentUser),
+        "description" 		: this.state.Description,
+        "pet_name"    		: this.state.PetName,
+      	"last_seen_place" 	: this.state.Last_seen_place,
+    	"prize_for_help"	: Number(this.state.Prize_for_help),
 	   }
  	 }
 
 	handleSubmit(e){
 	    e.preventDefault();
-	  	axios.post(APIURL+'animals/simplified/',  this.state.artc);
-	  	alert("CREATED")
-	  	this.refs.PetName.value = "";
-	    this.refs.Description.value = "";
+	  	axios.post(APIURL+'animals/simplified/',  this.state.artc)
+	  	.then(  data => alert("CREATED"))
+	  	.catch(error => alert("Something gone wrong!", error.response));
+	    this.refs.Last_seen_place.value = "";
+    	this.refs.Prize_for_help.value 	= "";
+	    this.refs.Description.value 	= "";
+	  	this.refs.PetName.value 		= "";
 	  }
   	// Article Creation END
 
@@ -135,14 +144,25 @@ class PetRegistration extends React.Component{
 								</form>
 
 								<form onSubmit={this.handleSubmit} className="add_a_new_one">
-						              <label> Pet name:
-						                <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
-					              </label>
-						              <br/>
-						              <label> Description:
-						                <input type="text" ref="Description" onChange={this.handleChange} />
-						              </label>
-						               <hr/>
+								<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+								  +
+								</button>
+						            <label> Pet name:
+						               <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
+					             	</label>
+						            <br/>
+						            <label> Description:
+						               <input type="text" ref="Description" onChange={this.handleChange} />
+						            </label>
+						            <br/>
+						            <label> Prize for help:
+						               <input type="number" ref="Prize_for_help" onChange={this.handleChange} />
+						            </label>
+						            <br/>
+						            <label> Last seen place:
+						               <input type="text" ref="Last_seen_place" onChange={this.handleChange} />
+						            </label>
+						            <hr/>
 						            <input type="submit" value="save" onClick={this.redirectToStorage}/>
 						        </form>
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import $ from 'jquery';
 
 import 'bootstrap/dist/css/bootstrap.css';
         
@@ -66,3 +65,9 @@ class StorageShow extends React.Component {
       )
     }
 }
+// this.props.storage.postedBy
+// this.props.storage.last_seen_place
+// this.props.storage.prize_for_help ЧИСЛО!!
+// this.props.storage.image
+// this.props.storage.pet_name
+// this.props.storage.description
