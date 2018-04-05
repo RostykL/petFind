@@ -9,7 +9,8 @@ class PostSerializer(serializers.ModelSerializer):
         model = Pet
         fields = (
             'id',
-            'author',   
+            'postedBy',  
+            'author', 
             'description',
             'pet_name',
         )
@@ -18,6 +19,7 @@ class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
         fields = (
+            'postedBy',
             'last_seen_place',
             'prize_for_help',
             'image',

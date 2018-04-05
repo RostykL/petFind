@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import $ from 'jquery';
 
 import 'bootstrap/dist/css/bootstrap.css';
         
@@ -46,6 +47,7 @@ class StorageShow extends React.Component {
         <div>
           <div className="container"> 
           <div className="col-2">
+            <h1 className="rel-pet-name">Posted by: {this.props.storage.postedBy}</h1>
             <div className="pet-block"><span class="pet-name-class">Pet Name:</span> 
               <span className="rel-pet-name">{this.props.storage.pet_name}</span>
             </div>

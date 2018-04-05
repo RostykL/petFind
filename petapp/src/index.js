@@ -41,7 +41,7 @@ class PetRegistration extends React.Component{
 		this.handleLengthANDGetPetNameValue	 = this.handleLengthANDGetPetNameValue.bind(this)
 		this.state = {
     	PetName     : "",
-    	Description : "",
+    	description : "",
     	}
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,6 +50,8 @@ class PetRegistration extends React.Component{
 
 	// Article Creation method
 	handleChange(e){
+		let currentUser = $('.currentUser').text()
+		let currentUserName = $('.currentUserName').text()
   		e.preventDefault()
 	    this.setState({
       	PetName     : this.refs.PetName.value,
@@ -57,14 +59,14 @@ class PetRegistration extends React.Component{
       });
 
       this.state.artc = {
-        // "description" : this.state.Description,
-        // "pet_name"    : this.state.PetName,
-        "description": "ffsdddf",
-    	"pet_name": "fsddsf"
-	    }
+      	"postedBy"	  : currentUserName,
+      	"author"      : Number(currentUser),
+        "description" : this.state.Description,
+        "pet_name"    : this.state.PetName,
+	   }
  	 }
 
-	  handleSubmit(e){
+	handleSubmit(e){
 	    e.preventDefault();
 	  	axios.post(APIURL+'animals/simplified/',  this.state.artc);
 	  	alert("CREATED")
@@ -94,7 +96,7 @@ class PetRegistration extends React.Component{
 			this.state.countTrue = 0;
 			this.state.petIds = 0;
 			res.data.map(pet => {
-				petPetName = pet.petName.toUpperCase();
+				petPetName = pet.pet_name.toUpperCase();
 				if (this.state.usersPetName == petPetName) {
 					petPetId = pet.id;
 					this.setState({
@@ -124,25 +126,25 @@ class PetRegistration extends React.Component{
 							<div className="register_animal">
 								<h1>Find & Register </h1>
 								<form>
-								  <input className="reg_input"
-								  type="text"
-								  name="findPetByName"
-								  placeholder="Find by the name"
-								  onChange={this.handleLengthANDGetPetNameValue} />
-								  {button}
+									  <input className="reg_input"
+									  type="text"
+									  name="findPetByName"
+									  placeholder="Find by the name"
+									  onChange={this.handleLengthANDGetPetNameValue} />
+									  {button}
 								</form>
 
 								<form onSubmit={this.handleSubmit} className="add_a_new_one">
-			              <label> Pet name:
-			                <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
-			              </label>
-			              <br/>
-			              <label> Description:
-			                <input type="text" ref="Description" onChange={this.handleChange} />
-			              </label>
-			               <hr/>
-			            <input type="submit" value="save" onClick={this.redirectToStorage}/>
-			          </form>
+						              <label> Pet name:
+						                <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
+					              </label>
+						              <br/>
+						              <label> Description:
+						                <input type="text" ref="Description" onChange={this.handleChange} />
+						              </label>
+						               <hr/>
+						            <input type="submit" value="save" onClick={this.redirectToStorage}/>
+						        </form>
 
 							</div>
 					</div>
