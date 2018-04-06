@@ -130,7 +130,8 @@ form {
   padding-top: 15px; }
 
 hr {
-  background-color: #343a40; }
+  border: 0.5px dashed #343a40;
+  min-width: 50px; }
 
 .desc-block {
   margin-top: 13px; }
@@ -146,6 +147,42 @@ hr {
   font-weight: bold;
   background-color: #212529;
   border: 3px solid #212529; }
+
+.navbar {
+  background: linear-gradient(38deg, #b46024 0%, #d87d29 52%, #ff9e20 82%, #ec9a2e 100%);
+  box-shadow: 25px -11px 155px 7px #6B1775; }
+
+.navbar-brand {
+  color: #42361a; }
+
+.navbar-brand:hover {
+  color: #e13734;
+  opacity: .7; }
+
+.def-input {
+  background-color: #0c2435;
+  border-bottom: 2px solid tomato;
+  margin: 5px; }
+
+.first-input {
+  width: 235px; }
+
+.second-input {
+  width: 220px; }
+
+.last-input {
+  width: 203px; }
+
+.submit-input {
+  color: white;
+  padding: 10px 25px;
+  font-size: 1.3em;
+  background-color: tomato; }
+
+.submit-input:hover {
+  cursor: pointer;
+  color: #a72915;
+  transition: all 1s ease; }
 
 /*Info Find*/
 .info_find {

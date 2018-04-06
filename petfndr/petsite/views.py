@@ -10,16 +10,18 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from petsite.forms import SignUpForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+
 # API 
 class PetCreateList(LoginRequiredMixin, generics.ListCreateAPIView):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
     queryset = models.Pet.objects.all()
     serializer_class = serializers.PostSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
-
+    # @login_required
+    # def perform_create(self, serializer):
+    #     serializer.save(author=self.request.user)
 
 class RetrieveUpdateDestroyPost(generics.RetrieveUpdateDestroyAPIView):
 	queryset = models.Pet.objects.all()
@@ -51,7 +53,9 @@ class UserInfo(generics.ListAPIView):
 
 
 def index(request):
-    return render(request, 'index.html', {})
+    return render(request, 'index.html', {
+        "user"     : request.user,
+    })
 
 
 # REGISTRATION

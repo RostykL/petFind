@@ -40,8 +40,10 @@ class PetRegistration extends React.Component{
 		this.state = {inputValueLenght: 0}
 		this.handleLengthANDGetPetNameValue	 = this.handleLengthANDGetPetNameValue.bind(this)
 		this.state = {
-    	PetName     : "",
-    	Description : "",
+    	PetName     	: "",
+    	description 	: "",
+    	last_seen_place : "",
+    	prize_for_help	: 0,
     	}
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,24 +52,35 @@ class PetRegistration extends React.Component{
 
 	// Article Creation method
 	handleChange(e){
+		let currentUser = $('.currentUser').text()
+		let currentUserName = $('.currentUserName').text()
   		e.preventDefault()
 	    this.setState({
-      	PetName     : this.refs.PetName.value,
-      	Description : this.refs.Description.value,
+      	PetName     	: this.refs.PetName.value,
+      	Description 	: this.refs.Description.value,
+      	Last_seen_place : this.refs.Last_seen_place.value,
+    	Prize_for_help	: this.refs.Prize_for_help.value,
       });
 
       this.state.artc = {
-        "description" : this.state.Description,
-        "petName"     : this.state.PetName,
-	    }
+      	"postedBy"	  		: currentUserName,
+      	"author"      		: Number(currentUser),
+        "description" 		: this.state.Description,
+        "pet_name"    		: this.state.PetName,
+      	"last_seen_place" 	: this.state.Last_seen_place,
+    	"prize_for_help"	: Number(this.state.Prize_for_help),
+	   }
  	 }
 
-	  handleSubmit(e){
+	handleSubmit(e){
 	    e.preventDefault();
-	  	axios.post(APIURL+'animals',  this.state.artc);
-	  	alert("CREATED")
-	  	this.refs.PetName.value = "";
-	    this.refs.Description.value = "";
+	  	axios.post(APIURL+'animals/simplified/',  this.state.artc)
+	  	.then(  data => alert("CREATED"))
+	  	.catch(error => alert("Something gone wrong!", error.response));
+	    this.refs.Last_seen_place.value = "";
+    	this.refs.Prize_for_help.value 	= "";
+	    this.refs.Description.value 	= "";
+	  	this.refs.PetName.value 		= "";
 	  }
   	// Article Creation END
 
@@ -92,7 +105,7 @@ class PetRegistration extends React.Component{
 			this.state.countTrue = 0;
 			this.state.petIds = 0;
 			res.data.map(pet => {
-				petPetName = pet.petName.toUpperCase();
+				petPetName = pet.pet_name.toUpperCase();
 				if (this.state.usersPetName == petPetName) {
 					petPetId = pet.id;
 					this.setState({
@@ -115,32 +128,41 @@ class PetRegistration extends React.Component{
 			<div>
 			<div className="registration_container">
 				<div className="container">
-					<div className="wrapper">
+					<div className="wrapper">	
 							<div className="intro_image">
 								<img src={require("./dog")} alt="lost-dog"/>
 							</div>
 							<div className="register_animal">
 								<h1>Find & Register </h1>
 								<form>
-								  <input className="reg_input"
-								  type="text"
-								  name="findPetByName"
-								  placeholder="Find by the name"
-								  onChange={this.handleLengthANDGetPetNameValue} />
-								  {button}
+									<input className="reg_input"
+									  type="text"
+									  name="findPetByName"
+									  placeholder="Find by the name"
+									  onChange={this.handleLengthANDGetPetNameValue} />
+									{button}
 								</form>
 
-								<form onSubmit={this.handleSubmit} className="add_a_new_one">
-			              <label> Pet name:
-			                <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
-			              </label>
-			              <br/>
-			              <label> Description:
-			                <input type="text" ref="Description" onChange={this.handleChange} />
-			              </label>
-			               <hr/>
-			            <input type="submit" value="save" onClick={this.redirectToStorage}/>
-			          </form>
+								<form onSubmit={this.handleSubmit} className="add_a_new_one">								
+						           <label> <span className="pet-bor">Pet name:</span>
+						               <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
+
+					             	</label>
+						            <br/>
+						            <label> Description:
+						               <input type="text" ref="Description" className="def-input first-input" onChange={this.handleChange} />
+						            </label>
+						            <br/>
+						            <label> Prize for help:
+						               <input type="number" ref="Prize_for_help" className="def-input second-input" onChange={this.handleChange} />
+						            </label>
+						            <br/>
+						            <label> Last seen place:
+						               <input type="text" ref="Last_seen_place" className="def-input last-input" onChange={this.handleChange} />
+						            </label>
+						            <hr/>
+						            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.redirectToStorage}/>
+						        </form>
 
 							</div>
 					</div>
