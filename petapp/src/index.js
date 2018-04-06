@@ -135,35 +135,33 @@ class PetRegistration extends React.Component{
 							<div className="register_animal">
 								<h1>Find & Register </h1>
 								<form>
-									  <input className="reg_input"
+									<input className="reg_input"
 									  type="text"
 									  name="findPetByName"
 									  placeholder="Find by the name"
 									  onChange={this.handleLengthANDGetPetNameValue} />
-									  {button}
+									{button}
 								</form>
 
-								<form onSubmit={this.handleSubmit} className="add_a_new_one">
-								<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-								  +
-								</button>
-						            <label> Pet name:
+								<form onSubmit={this.handleSubmit} className="add_a_new_one">								
+						           <label> <span className="pet-bor">Pet name:</span>
 						               <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
+
 					             	</label>
 						            <br/>
 						            <label> Description:
-						               <input type="text" ref="Description" onChange={this.handleChange} />
+						               <input type="text" ref="Description" className="def-input first-input" onChange={this.handleChange} />
 						            </label>
 						            <br/>
 						            <label> Prize for help:
-						               <input type="number" ref="Prize_for_help" onChange={this.handleChange} />
+						               <input type="number" ref="Prize_for_help" className="def-input second-input" onChange={this.handleChange} />
 						            </label>
 						            <br/>
 						            <label> Last seen place:
-						               <input type="text" ref="Last_seen_place" onChange={this.handleChange} />
+						               <input type="text" ref="Last_seen_place" className="def-input last-input" onChange={this.handleChange} />
 						            </label>
 						            <hr/>
-						            <input type="submit" value="save" onClick={this.redirectToStorage}/>
+						            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.redirectToStorage}/>
 						        </form>
 
 							</div>
