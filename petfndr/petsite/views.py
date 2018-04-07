@@ -35,7 +35,7 @@ class PetList(generics.ListAPIView):
         filterparam = self.request.query_params.get('last_seen_place', None)
         #filterparam = self.request.query_params.get('pet_name', None)
         if filterparam is not None:
-            queryset = queryset.filter(last_seen_place__icontains=filterparam).order_by('fame')
+            queryset = queryset.filter(last_seen_place__icontains=filterparam).order_by('-fame')
         return queryset
 
 class UserInfo(generics.ListAPIView):
