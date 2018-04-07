@@ -48,7 +48,7 @@ class StorageShow extends React.Component {
           <div className="col-2">
             <h1 className="rel-pet-name">Posted by: {this.props.storage.postedBy}</h1>
             <div className="pet-block"><span class="pet-name-class">Pet Name:</span> 
-              <span className="rel-pet-name">{this.props.storage.pet_name}</span>
+              <span className="pet-name">{this.props.storage.pet_name}</span>
             </div>
             <hr />
             <div className="desc-block"><span class="description">Description:</span>
