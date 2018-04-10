@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Amita");
 @import url("https://fonts.googleapis.com/css?family=Patua+One");
+@import url("https://fonts.googleapis.com/css?family=VT323");
 *, html {
   margin: 0;
   padding: 0;
@@ -201,3 +202,13 @@ hr {
   width: 50%;
   height: 100%;
   float: right; }
+
+.signUpBlock {
+  display: none;
+  border: 1px solid black;
+  position: absolute;
+  top: 132px;
+  right: 10px; }
+  .signUpBlock a {
+    font-family: 'VT323', monospace;
+    font-size: 25px; }

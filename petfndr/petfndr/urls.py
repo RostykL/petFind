@@ -29,5 +29,6 @@ urlpatterns = [
     path('signup/', core_views.signup, name='signup'),
     path('', csrf_exempt(core_views.index), name='index'),
     path('login/', auth_views.login, name='login'),
+    path('logout/', auth_views.logout,{'next_page': '/'}, name='logout'),
 
 ]

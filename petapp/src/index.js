@@ -14,9 +14,15 @@ import Storage from './components/animalStorage.js';
 
 var APIURL = "http://127.0.0.1:8000/api/";
 let checkingName = 0;
-
+let boolButString = $('#DJANGO_USER').text()
+var StringToBool = (boolButString === 'true');
 class Header extends React.Component{
 	render() {
+		let loginOrLogout = StringToBool ? (
+			<a href="/logout" className="navbar-brand">Log-Out</a>
+		) : (
+			<a href="/login" className="navbar-brand">Login</a>
+		) 
 		return (
 				<Router>
 					<div>
@@ -24,10 +30,12 @@ class Header extends React.Component{
 	                <div className="container">
 						<Link to="/" className="navbar-brand">PetFinder</Link>
 						<Link to="/storage" className="navbar-brand">Storage </Link>
+						<a href="/signup" className="navbar-brand">Sign-Up</a>
+						{loginOrLogout}
 	                </div>
 	            </nav>
-	              	<Route exact path={"/"} component={PetRegistration} />
-		            <Route path={"/storage"}  render={() => <Storage ids={checkingName} />} />
+	              <Route exact path={"/"} component={PetRegistration} />
+		          <Route path={"/storage"}  render={() => <Storage ids={checkingName} />} />
 	       	</div>
         </Router>
 		)
@@ -44,7 +52,10 @@ class PetRegistration extends React.Component{
     	description 	: "",
     	last_seen_place : "",
     	prize_for_help	: 0,
+    	DJANGO_USER		: false
     	}
+    	// console.log(StringToBool)
+    	this.state.DJANGO_USER = StringToBool;
 	    this.handleChange = this.handleChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
 	    this.SearchByName = this.SearchByName.bind(this);
@@ -67,7 +78,7 @@ class PetRegistration extends React.Component{
       	"author"      		: Number(currentUser),
         "description" 		: this.state.Description,
         "pet_name"    		: this.state.PetName,
-      	"last_seen_place" 	: this.state.Last_seen_place,
+      	"last_seen_place" : this.state.Last_seen_place,
     	"prize_for_help"	: Number(this.state.Prize_for_help),
 	   }
  	 }
@@ -124,6 +135,31 @@ class PetRegistration extends React.Component{
 	    ) : (
 	      <input className="reg_btn" type="submit" value="Register"  onClick={this.showForm}/>
 	    );
+	    let check_if_user_is_login_in = this.state.DJANGO_USER ? (
+				<form onSubmit={this.handleSubmit} className="add_a_new_one">								
+		           <label> <span className="pet-bor">Pet name:</span>
+		               <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
+	             	</label>
+		            <br/>
+		            <label> Description:
+		               <input type="text" ref="Description" className="def-input first-input" onChange={this.handleChange} />
+		            </label>
+		            <br/>
+		            <label> Prize for help:
+		               <input type="number" ref="Prize_for_help" className="def-input second-input" onChange={this.handleChange} />
+		            </label>
+		            <br/>
+		            <label> Last seen place:
+		               <input type="text" ref="Last_seen_place" className="def-input last-input" onChange={this.handleChange} />
+		            </label>
+		            <hr/>
+		            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.redirectToStorage}/>
+		        </form>	    	
+	    ) : (
+	    	<div className="add_a_new_one">
+	    			<h1>Login to continue</h1>
+	    	</div>		
+	    )
 		return (
 			<div>
 			<div className="registration_container">
@@ -142,27 +178,7 @@ class PetRegistration extends React.Component{
 									  onChange={this.handleLengthANDGetPetNameValue} />
 									{button}
 								</form>
-
-								<form onSubmit={this.handleSubmit} className="add_a_new_one">								
-						           <label> <span className="pet-bor">Pet name:</span>
-						               <input className="reg_input" type="text" ref="PetName" onChange={this.handleChange} />
-
-					             	</label>
-						            <br/>
-						            <label> Description:
-						               <input type="text" ref="Description" className="def-input first-input" onChange={this.handleChange} />
-						            </label>
-						            <br/>
-						            <label> Prize for help:
-						               <input type="number" ref="Prize_for_help" className="def-input second-input" onChange={this.handleChange} />
-						            </label>
-						            <br/>
-						            <label> Last seen place:
-						               <input type="text" ref="Last_seen_place" className="def-input last-input" onChange={this.handleChange} />
-						            </label>
-						            <hr/>
-						            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.redirectToStorage}/>
-						        </form>
+								{check_if_user_is_login_in}
 
 							</div>
 					</div>
