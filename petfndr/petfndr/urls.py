@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from petsite import views as core_views
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import views as auth_views
 
 app_name="petsite"
 
@@ -27,4 +28,6 @@ urlpatterns = [
     path('api/user_info', core_views.UserInfo.as_view()),
     path('signup/', core_views.signup, name='signup'),
     path('', csrf_exempt(core_views.index), name='index'),
+    path('login/', auth_views.login, name='login'),
+
 ]
