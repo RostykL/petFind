@@ -1,22 +1,172 @@
 <html>
-<head></head>
+<head>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+
+</head>
+<style type="text/css">
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.2em;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2.5em;
+}
+
+.usr-def-sty {
+  width: 20px;
+  height: 400px;
+  margin-left: 10px;
+  background-color: #eaeaea;
+  border-bottom: 5px solid black;
+}
+
+.col-3{
+  margin:0 auto;
+}
+
+.col-4 {
+  height: 250px;
+}
+
+label {
+  font-size: 1.3em;
+}
+
+label:first-letter {
+  font-weight: bold;
+}
+
+label:hover {
+  color: #eaeaea;  
+  transition: all 2s ease;
+}
+
+input {
+  border: none;
+  padding: 4px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 3px #000000;
+}
+
+button {
+  padding: 5px;
+  border: none;
+  background-color: #fff;
+  font-size: 1.3em;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #000000;
+}
+
+button:hover {
+  cursor: pointer;
+  transition: all 1s ease;
+}
+
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #000;
+  border: 1px solid black;
+  position: absolute;
+  text-align: center;
+  top: -28px;
+  left: -28px;
+}
+
+.circle i{
+  position: absolute;
+  color: white;
+  left: 15px;
+  top: 15px;
+  font-weight: bold;
+
+}
+
+.nav {
+  width: 300px;
+  height: 45px;
+  position: absolute;
+  left: 60px;
+  bottom: -80px; 
+  padding: 5px;
+  background-color: #eaeaea;
+  border-bottom: 5px solid black;
+}
+
+.link-home {
+  margin: 0 auto;
+  color: #616161  ;
+}
+
+.link-home:hover {
+  text-decoration: none;
+  transition: all 1s ease;
+  color: black;
+}
+
+</style>
+
+
 <body>
 <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
+<div class="container-fluid">
+    <form method="post">
+    {% csrf_token %}    
+  <div class="row">
+    <div class="col-3  usr-def-sty">
+      <div class="circle"><i class="fas fa-user"></i></div>
       <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
+        <label for="id_username">Username:</label><br>
+        <input type="text" name="username" maxlength="150" autofocus required id="id_username" />        
       </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
+    
+      <p>
+        <label for="id_first_name">First name:</label><br>
+        <input type="text" name="first_name" maxlength="30" id="id_first_name" />      
+      </p>
+
+      <p>
+        <label for="id_last_name">Last name:</label><br>
+        <input type="text" name="last_name" maxlength="30" id="id_last_name" />       
+      </p>
+</div>
+    <div class="col-4 usr-def-sty">
+      <div class="circle"><i class="fas fa-envelope"></i></div>
+      <p>
+        <label for="id_email">Email:</label><br>
+        <input type="email" name="email" maxlength="254" required id="id_email" />        
+      </p>
+      <p>
+        <button type="submit">Sign up</button>
+      </p>
+      <div class="nav">
+
+          <a href="/" class="link-home"><i class="fas fa-arrow-left"></i>Return Home</a>
+      </div>
+    </div>
+    <div class="col-3   usr-def-sty">
+      <div class="circle"><i class="fas fa-lock"></i></div>
+      <p>
+        <label for="id_password1">Password:</label><br>
+        <input type="password" name="password1" required id="id_password1" />       
+      </p>
+    
+      <p>
+        <label for="id_password2">Password confirmation:</label><br>
+        <input type="password" name="password2" required id="id_password2" />         
+      </p>
+    </div>
+  </div>
+</div>
   </form>
+
+
 </body>
 </html>

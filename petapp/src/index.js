@@ -158,6 +158,7 @@ class PetRegistration extends React.Component{
 	    ) : (
 	    	<div className="add_a_new_one">
 	    			<h1>Login to continue</h1>
+	    			<a href="/login" className="navbar-brand">Login</a>
 	    	</div>		
 	    )
 		return (
