@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.css';
         
-var APIURL = "http://127.0.0.1:8000/api/";
 
+var APIURL = "http://127.0.0.1:8000/api/";
 export default class Storage extends React.Component {
     constructor(props){
         super(props)
@@ -46,7 +46,6 @@ class StorageShow extends React.Component {
         <div>
           <div className="container"> 
           <div className="col-2">
-            <h1 className="rel-pet-name">Posted by: {this.props.storage.postedBy}</h1>
             <div className="pet-block"><span class="pet-name-class">Pet Name:</span> 
               <span className="pet-name">{this.props.storage.pet_name}</span>
             </div>
@@ -65,6 +64,9 @@ class StorageShow extends React.Component {
       )
     }
 }
+
+           // <h1 className="rel-pet-name">Posted by: {this.props.storage.postedBy}</h1>
+
 // this.props.storage.postedBy
 // this.props.storage.last_seen_place
 // this.props.storage.prize_for_help ЧИСЛО!!

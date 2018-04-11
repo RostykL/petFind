@@ -21,6 +21,7 @@ class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
         fields = (
+            'id',
             'postedBy',
             'last_seen_place',
             'prize_for_help',

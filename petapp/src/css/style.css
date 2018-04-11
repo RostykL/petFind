@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Amita");
 @import url("https://fonts.googleapis.com/css?family=Patua+One");
+@import url("https://fonts.googleapis.com/css?family=PT+Sans+Caption");
 @import url("https://fonts.googleapis.com/css?family=VT323");
 *, html {
   margin: 0;
@@ -108,27 +109,31 @@ form {
   position: relative;
   background-color: #212529;
   min-width: 270px;
-  min-height: 250px;
+  min-height: 225px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: 6px 2px 20px 7px #888888;
-  border-bottom: 3px solid tomato; }
+  border-bottom: 3px solid tomato;
+  padding-bottom: 25px;
+  padding-top: 25px; }
 
-.rel-pet-name {
-  color: black;
-  padding: 6px;
-  margin-left: 10px;
-  background-color: #fff; }
+.pet-name-class {
+  color: white;
+  font-size: 1.4em;
+  font-family: 'PT Sans Caption', sans-serif; }
+
+.pet-name {
+  color: #909090;
+  text-decoration: underline; }
 
 .rel-pet-desc {
-  color: white;
+  color: #bdbdbd;
   padding: 6px;
   width: 100px;
-  margin-left: 10px;
-  background-color: #282c2f; }
-
-.pet-block {
-  padding-top: 15px; }
+  font-size: 0.6em;
+  margin: 10px 0 10px;
+  background-color: #282c2f;
+  font-family: 'PT Sans Caption', sans-serif; }
 
 hr {
   border: 0.5px dashed #343a40;
@@ -136,18 +141,6 @@ hr {
 
 .desc-block {
   margin-top: 13px; }
-
-.storage-id {
-  position: absolute;
-  width: auto;
-  top: -15px;
-  color: #fff;
-  right: -15px;
-  padding: 10px;
-  border-radius: 50%;
-  font-weight: bold;
-  background-color: #212529;
-  border: 3px solid #212529; }
 
 .navbar {
   background: linear-gradient(38deg, #b46024 0%, #d87d29 52%, #ff9e20 82%, #ec9a2e 100%);

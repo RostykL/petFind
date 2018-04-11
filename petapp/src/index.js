@@ -14,6 +14,7 @@ import Storage from './components/animalStorage.js';
 
 var APIURL = "http://127.0.0.1:8000/api/";
 let checkingName = 0;
+let checkingNameArray = [];
 let boolButString = $('#DJANGO_USER').text()
 var StringToBool = (boolButString === 'true');
 class Header extends React.Component{
@@ -118,6 +119,7 @@ class PetRegistration extends React.Component{
 			res.data.map(pet => {
 				petPetName = pet.pet_name.toUpperCase();
 				if (this.state.usersPetName == petPetName) {
+				checkingNameArray.push(pet.id);
 					petPetId = pet.id;
 					this.setState({
 						countTrue : this.state.countTrue + 1,
@@ -126,6 +128,7 @@ class PetRegistration extends React.Component{
 				}
 		})
 		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE and your number is ${this.state.petIds}`);
+		console.log(checkingNameArray);
 		checkingName += this.state.petIds;
 		})
 	}
@@ -157,8 +160,7 @@ class PetRegistration extends React.Component{
 		        </form>	    	
 	    ) : (
 	    	<div className="add_a_new_one">
-	    			<h1>Login to continue</h1>
-	    			<a href="/login" className="navbar-brand">Login</a>
+	    			<h1><a href="/login" className="navbar-brand"><h1>Login </h1> </a> to continue</h1>
 	    	</div>		
 	    )
 		return (
@@ -167,7 +169,7 @@ class PetRegistration extends React.Component{
 				<div className="container">
 					<div className="wrapper">	
 							<div className="intro_image">
-								<img src={require("./dog")} alt="lost-dog"/>
+									<img src={require("./dog")} 	alt="lost-dog"/>
 							</div>
 							<div className="register_animal">
 								<h1>Find & Register </h1>
@@ -180,7 +182,6 @@ class PetRegistration extends React.Component{
 									{button}
 								</form>
 								{check_if_user_is_login_in}
-
 							</div>
 					</div>
 				</div>
@@ -207,3 +208,5 @@ class PetRegistration extends React.Component{
 render(
 	<Header />,
 	document.getElementById('root'));
+
+
