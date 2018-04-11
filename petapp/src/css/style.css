@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Amita");
 @import url("https://fonts.googleapis.com/css?family=Patua+One");
 @import url("https://fonts.googleapis.com/css?family=PT+Sans+Caption");
+@import url("https://fonts.googleapis.com/css?family=Gugi");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
 @import url("https://fonts.googleapis.com/css?family=VT323");
 *, html {
   margin: 0;
@@ -85,15 +87,19 @@ form {
 
 /*STORAGE*/
 .pet-name-class {
+  color: orange;
   padding: 6px;
-  font-weight: bold; }
+  font-size: 1.4em;
+  font-weight: bold;
+  font-family: 'Josefin Sans', sans-serif; }
 
 .description {
-  color: white;
+  color: orange;
   padding: 6px;
   font-weight: bold;
   margin-top: -10px;
-  background-color: #092435; }
+  background-color: #092435;
+  font-family: 'Josefin Sans', sans-serif; }
 
 .phone {
   color: white;
@@ -103,24 +109,19 @@ form {
   background-color: #092435; }
 
 .col-2 {
-  margin-left: 30px;
+  margin-top: 20px;
+  margin-left: 20px;
   float: left;
-  margin-top: 25px;
   position: relative;
   background-color: #212529;
-  min-width: 270px;
-  min-height: 225px;
+  min-width: 500px;
+  min-height: 350px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   box-shadow: 6px 2px 20px 7px #888888;
   border-bottom: 3px solid tomato;
-  padding-bottom: 25px;
-  padding-top: 25px; }
-
-.pet-name-class {
-  color: white;
-  font-size: 1.4em;
-  font-family: 'PT Sans Caption', sans-serif; }
+  padding-bottom: 20px;
+  padding-top: 20px; }
 
 .pet-name {
   color: #909090;
@@ -128,10 +129,7 @@ form {
 
 .rel-pet-desc {
   color: #bdbdbd;
-  padding: 6px;
-  width: 100px;
-  font-size: 0.6em;
-  margin: 10px 0 10px;
+  width: 150px;
   background-color: #282c2f;
   font-family: 'PT Sans Caption', sans-serif; }
 
@@ -144,13 +142,14 @@ hr {
 
 .navbar {
   background: linear-gradient(38deg, #b46024 0%, #d87d29 52%, #ff9e20 82%, #ec9a2e 100%);
-  box-shadow: 25px -11px 155px 7px #6B1775; }
+  box-shadow: 25px -11px 155px 7px black;
+  z-index: 999; }
 
 .navbar-brand {
+  font-family: 'Gugi', cursive;
   color: #42361a; }
 
 .navbar-brand:hover {
-  color: #e13734;
   opacity: .7; }
 
 .def-input {
