@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Pet(models.Model):
     postedBy = models.CharField(max_length=100, default="Anonymouse")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
-    description = models.CharField(max_length=100, default='')
+    description = models.CharField(max_length=300, default='')
     pet_name = models.CharField(max_length=100, default='')
     last_seen_place = models.CharField(max_length=100, default='Somewhere above the sky')
     fame = models.IntegerField(default=0)

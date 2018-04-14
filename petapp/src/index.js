@@ -13,10 +13,15 @@ import Storage from './components/animalStorage.js';
 
 
 var APIURL = "http://127.0.0.1:8000/api/";
+
+let fakeCount = 0;
+let realCount = 1;
+
 let checkingName = 0;
 let checkingNameArray = [];
 let boolButString = $('#DJANGO_USER').text()
 var StringToBool = (boolButString === 'true');
+
 class Header extends React.Component{
 	render() {
 		let loginOrLogout = StringToBool ? (
@@ -53,7 +58,8 @@ class PetRegistration extends React.Component{
     	description 	: "",
     	last_seen_place : "",
     	prize_for_help	: 0,
-    	DJANGO_USER		: false
+    	DJANGO_USER		: false,
+    	noErrorHandle	: false,
     	}
     	// console.log(StringToBool)
     	this.state.DJANGO_USER = StringToBool;
@@ -87,8 +93,19 @@ class PetRegistration extends React.Component{
 	handleSubmit(e){
 	    e.preventDefault();
 	  	axios.post(APIURL+'animals/simplified/',  this.state.artc)
-	  	.then(  data => alert("CREATED"))
-	  	.catch(error => alert("Something gone wrong!", error.response));
+	  	.then(data => {
+	  		$(".created__class").show()
+	  		this.setState({
+	  			noErrorHandle: true,
+	  		})
+	  	})
+	  	.catch(error => {
+	  		$(".created__class").show().text("ERROR").css("color", "red")
+	  		this.setState({
+	  			noErrorHandle: false,
+	  		})
+	  		setTimeout( () => $(".created__class").hide())
+	  	});
 	    this.refs.Last_seen_place.value = "";
     	this.refs.Prize_for_help.value 	= "";
 	    this.refs.Description.value 	= "";
@@ -108,6 +125,22 @@ class PetRegistration extends React.Component{
 	showForm(e) {
 		e.preventDefault()
 		$('.add_a_new_one').toggleClass('show');
+		$('#block_post').show();
+		// 1
+		fakeCount++
+		if (fakeCount > realCount) {
+  	  	  $("#block_post").css("transform" , "scale(0.08)");
+  	      $("#block_post").css("transition" , "1s");	
+  	  	  $("#block_post").css("margin" , "365px 0 0 17px");
+	  	  $("#block_post").css("top" , "0");
+  	  	  $("#block_post").css("left" , "0");  	  	  
+  	      realCount += 2;
+  	  	} else {
+  	  	  $("#block_post").css("top" , "-234px");
+  	  	  $("#block_post").css("left" , "73px");
+	      $("#block_post").css("transform" , "scale(1)");
+  	      $("#block_post").css("transition" , "1s")
+  	  	}
 	}
 
 	SearchByName(e) {
@@ -132,11 +165,26 @@ class PetRegistration extends React.Component{
 		checkingName += this.state.petIds;
 		})
 	}
+
+
+	showAnimation(e) {
+		if (this.state.noErrorHandle) {
+			$("#block_post").css("animation" ,"animToHeader 1.3s ease");
+			setTimeout(() => {
+				$("#block_post").css("animation" ,"");
+				$(".created__class").hide();
+				$(".short__description").text(" ");
+			}, 2500)
+		} else {
+			alert("Oops WARNING, something gone wrong!!!")
+		}
+	}
+
 	render() {
 		let button = this.state.inputValueLenght >= 1 ? (
-		      <button className="reg_btn" onClick={this.SearchByName}>Find</button>
+		    <button className="reg_btn" onClick={this.SearchByName}>Find</button>
 	    ) : (
-	      <input className="reg_btn" type="submit" value="Register"  onClick={this.showForm}/>
+	     	<input className="reg_btn" type="submit" value="Register"  onClick={this.showForm} id="increaseIt"/>
 	    );
 	    let check_if_user_is_login_in = this.state.DJANGO_USER ? (
 				<form onSubmit={this.handleSubmit} className="add_a_new_one">								
@@ -156,7 +204,7 @@ class PetRegistration extends React.Component{
 		               <input type="text" ref="Last_seen_place" className="def-input last-input" onChange={this.handleChange} />
 		            </label>
 		            <hr/>
-		            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.redirectToStorage}/>
+		            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.showAnimation.bind(this)}/>
 		        </form>	    	
 	    ) : (
 	    	<div className="add_a_new_one">
@@ -169,7 +217,22 @@ class PetRegistration extends React.Component{
 				<div className="container">
 					<div className="wrapper">	
 							<div className="intro_image">
-									<img src={require("./dog")} 	alt="lost-dog"/>
+								<img src={require("./dog")} alt="lost-dog"/>
+							    <div class="reg_form" id="block_post">
+							      <fieldset class="pet__name__block">
+							        <legend class="pet__name">Pet Name</legend>
+							        <p class="pet__name__p sameFontSize"><span class="short__description">{this.state.PetName}</span> <i class="fas fa-check-circle"></i></p>
+							      </fieldset> 
+							      <fieldset class="pet__name__block__description">
+							        <legend class="pet__description">Description</legend>
+							        <p class="pet__description__p sameFontSize"><span class="short__description">{this.state.Description}</span> <i class="fas fa-exclamation-circle"></i></p>
+							      </fieldset> 
+							      <fieldset class="pet__name__block__last__seen">
+							        <legend class="pet__last__seen">Last seen place</legend>
+							        <p class="pet__last__seen__p sameFontSize"><span class="short__description">{this.state.Last_seen_place}</span> <i class="fas fa-map-marker"></i></p>
+							      </fieldset>    
+							      <h1 class="created__class">CREATED</h1>    
+							    </div>
 							</div>
 							<div className="register_animal">
 								<h1>Find & Register </h1>
