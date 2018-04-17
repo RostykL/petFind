@@ -184,6 +184,7 @@ class PetRegistration extends React.Component{
 		}).then(() => {
 			$(".modalSelfMadeWindow > span").click( () => {
 				$('.modalSelfMadeWindow').css("display", "none");
+				$( ".reg_btn" ).prop( "disabled", false );
 				$(".showFoundInformation > p").remove();
 				foundUsersPet.length = 0;	
 			})
