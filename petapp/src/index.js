@@ -16,9 +16,9 @@ var APIURL = "http://127.0.0.1:8000/api/";
 
 let fakeCount = 0;
 let realCount = 1;
-
 let checkingName = 0;
 let checkingNameArray = [];
+let foundUsersPet = [];
 let boolButString = $('#DJANGO_USER').text()
 var StringToBool = (boolButString === 'true');
 
@@ -146,23 +146,51 @@ class PetRegistration extends React.Component{
 	SearchByName(e) {
 		e.preventDefault();
 		axios.get(APIURL+'animals').then(res => {
-			let petPetName, petPetId;
+			let petPetName, petPetId, petName, prize, desc, lastSeen, elementObj;
 			this.state.countTrue = 0;
 			this.state.petIds = 0;
 			res.data.map(pet => {
 				petPetName = pet.pet_name.toUpperCase();
 				if (this.state.usersPetName == petPetName) {
+				elementObj = {
+					"name" 				: pet.pet_name,
+					"prize"				: pet.prize_for_help,
+					"description"		: pet.description,
+					"lastseenplace"		: pet.last_seen_place
+				}
 				checkingNameArray.push(pet.id);
-					petPetId = pet.id;
+				foundUsersPet.push(elementObj)
+					petPetId 	= pet.id;
 					this.setState({
-						countTrue : this.state.countTrue + 1,
-						petIds : petPetId
+						countTrue 	: this.state.countTrue + 1,
+						petIds 		: petPetId,
+
 					})
 				}
 		})
-		alert(`We found ${this.state.countTrue} pets name, check out the STORAGE and your number is ${this.state.petIds}`);
-		console.log(checkingNameArray);
+		for (let i in foundUsersPet) {
+		  console.log(JSON.stringify(foundUsersPet[i]));
+		  $(".showFoundInformation").append(`
+		  	<p>
+		  		Name  				: ${foundUsersPet[i].name},
+		  		Prize 			 	: ${foundUsersPet[i].prize},
+		  		Description 	 	: ${foundUsersPet[i].description},
+		  		last seen place 	: ${foundUsersPet[i].lastseenplace},
+		  	</p>
+		  	`);
+		}		
+
 		checkingName += this.state.petIds;
+		}).then(() => {
+			$(".modalSelfMadeWindow > span").click( () => {
+				$('.modalSelfMadeWindow').css("display", "none");
+				$(".showFoundInformation > p").remove();
+				foundUsersPet.length = 0;	
+			})
+			$('.modalSelfMadeWindow').css("display", "block");
+			$( ".reg_btn" ).prop( "disabled", true );
+
+
 		})
 	}
 
@@ -213,25 +241,32 @@ class PetRegistration extends React.Component{
 	    )
 		return (
 			<div>
+			<div className="modalSelfMadeWindow">
+				<h1>Your request completed</h1>
+				<span>X</span>
+				<div className="showFoundInformation">
+					
+				</div>
+			</div>
 			<div className="registration_container">
 				<div className="container">
 					<div className="wrapper">	
 							<div className="intro_image">
 								<img src={require("./dog")} alt="lost-dog"/>
-							    <div class="reg_form" id="block_post">
-							      <fieldset class="pet__name__block">
-							        <legend class="pet__name">Pet Name</legend>
-							        <p class="pet__name__p sameFontSize"><span class="short__description">{this.state.PetName}</span> <i class="fas fa-check-circle"></i></p>
+							    <div className="reg_form" id="block_post">
+							      <fieldset className="pet__name__block">
+							        <legend className="pet__name">Pet Name</legend>
+							        <p className="pet__name__p sameFontSize"><span className="short__description">{this.state.PetName}</span> <i className="fas fa-check-circle"></i></p>
 							      </fieldset> 
-							      <fieldset class="pet__name__block__description">
-							        <legend class="pet__description">Description</legend>
-							        <p class="pet__description__p sameFontSize"><span class="short__description">{this.state.Description}</span> <i class="fas fa-exclamation-circle"></i></p>
+							      <fieldset className="pet__name__block__description">
+							        <legend className="pet__description">Description</legend>
+							        <p className="pet__description__p sameFontSize"><span className="short__description">{this.state.Description}</span> <i className="fas fa-exclamation-circle"></i></p>
 							      </fieldset> 
-							      <fieldset class="pet__name__block__last__seen">
-							        <legend class="pet__last__seen">Last seen place</legend>
-							        <p class="pet__last__seen__p sameFontSize"><span class="short__description">{this.state.Last_seen_place}</span> <i class="fas fa-map-marker"></i></p>
+							      <fieldset className="pet__name__block__last__seen">
+							        <legend className="pet__last__seen">Last seen place</legend>
+							        <p className="pet__last__seen__p sameFontSize"><span className="short__description">{this.state.Last_seen_place}</span> <i className="fas fa-map-marker"></i></p>
 							      </fieldset>    
-							      <h1 class="created__class">CREATED</h1>    
+							      <h1 className="created__class">CREATED</h1>    
 							    </div>
 							</div>
 							<div className="register_animal">
