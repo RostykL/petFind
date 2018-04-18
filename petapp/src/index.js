@@ -171,13 +171,16 @@ class PetRegistration extends React.Component{
 		for (let i in foundUsersPet) {
 		  console.log(JSON.stringify(foundUsersPet[i]));
 		  $(".showFoundInformation").append(`
-		  	<p>
-		  		Name  				: ${foundUsersPet[i].name},
-		  		Prize 			 	: ${foundUsersPet[i].prize},
-		  		Description 	 	: ${foundUsersPet[i].description},
-		  		last seen place 	: ${foundUsersPet[i].lastseenplace},
-		  	</p>
-		  	`);
+		  	    <div class='lightboxTXT'>
+                <div class="lightboxNAME">Name   : ${foundUsersPet[i].name}</div>
+                <div class="lightboxPrize">Prize               : ${foundUsersPet[i].prize}</div>
+                 <div class="lightboxDesc">Description         : ${foundUsersPet[i].description}</div>
+                  <div class="lightboxDesc">Last seen place     : ${foundUsersPet[i].lastseenplace}</div>
+                
+                
+                
+            </div>
+		  	`);	
 		}		
 
 		checkingName += this.state.petIds;
