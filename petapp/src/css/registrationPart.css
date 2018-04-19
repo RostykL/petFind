@@ -325,16 +325,13 @@ hr {
     overflow-y: scroll;
     margin: 0 auto;
     width: 800px;
-    min-height: 400px; }
-<<<<<<< HEAD
-    .modalSelfMadeWindow .showFoundInformation span {
-      cursor: pointer;
-      font-size: 40px;
-      position: absolute;
-      top: 0;
-      left: 0;
-      color: red; }
-=======
+    min-height: 400px;
+    cursor: pointer;
+    font-size: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: red; }
 
 .lightboxTXT {
   box-shadow: 1px 0px 10px blue;
@@ -351,4 +348,3 @@ hr {
   color: white;
   padding-bottom: 21px;
   text-shadow: 0px 0px 9px transparent; }
->>>>>>> a25159e4b2d48a87663bc3b95403407c74c98e7d

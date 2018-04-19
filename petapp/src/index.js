@@ -10,10 +10,13 @@ import './css/style.css';
 import './sass/style.sass';
 
 import Storage from './components/animalStorage.js';
+import Map from './components/Map';
+import Places from './components/Places';
 
 
 var APIURL = "http://127.0.0.1:8000/api/";
-
+const google=window.google;
+// let lat, lng;
 let fakeCount = 0;
 let realCount = 1;
 let checkingName = 0;
@@ -21,6 +24,8 @@ let checkingNameArray = [];
 let foundUsersPet = [];
 let boolButString = $('#DJANGO_USER').text()
 var StringToBool = (boolButString === 'true');
+
+
 
 class Header extends React.Component{
 	render() {
@@ -36,12 +41,18 @@ class Header extends React.Component{
 	                <div className="container">
 						<Link to="/" className="navbar-brand">PetFinder</Link>
 						<Link to="/storage" className="navbar-brand">Storage </Link>
+						<Link to="/map" className="navbar-brand">Map </Link>
+						<Link to="/place" className="navbar-brand">Places </Link>
 						<a href="/signup" className="navbar-brand">Sign-Up</a>
 						{loginOrLogout}
 	                </div>
 	            </nav>
 	              <Route exact path={"/"} component={PetRegistration} />
 		          <Route path={"/storage"}  render={() => <Storage ids={checkingName} />} />
+		          <Route path={"/map"}  render={() => <Map  containerElement={<div style={{ height: `0` }} />}
+  															mapElement={<div style={{ height: `0%` }} />}/> }/>
+		          <Route path={"/place"}  render={() => <Places />} />
+
 	       	</div>
         </Router>
 		)
@@ -85,7 +96,7 @@ class PetRegistration extends React.Component{
       	"author"      		: Number(currentUser),
         "description" 		: this.state.Description,
         "pet_name"    		: this.state.PetName,
-      	"last_seen_place" : this.state.Last_seen_place,
+      	"last_seen_place" 	: this.state.Last_seen_place,
     	"prize_for_help"	: Number(this.state.Prize_for_help),
 	   }
  	 }
@@ -141,6 +152,20 @@ class PetRegistration extends React.Component{
 	      $("#block_post").css("transform" , "scale(1)");
   	      $("#block_post").css("transition" , "1s")
   	  	}
+
+    google.maps.event.addDomListener(window, 'load', intilize);
+    function intilize() {
+        var autocomplete = new google.maps.places.Autocomplete(document.getElementById("txtautocomplete"));
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+
+        var place = autocomplete.getPlace();
+        var location = "Address: " + place.formatted_address + "<br/>";
+        location += "Latitude: " + place.geometry.location.lat() + "<br/>";
+        location += "Longitude: " + place.geometry.location.lng();
+        // document.getElementById('lblresult').innerHTML = location
+        });
+    };
+
 	}
 
 	SearchByName(e) {
@@ -208,7 +233,7 @@ class PetRegistration extends React.Component{
 				$(".short__description").text(" ");
 			}, 2500)
 		} else {
-			alert("Oops WARNING, something gone wrong!!!")
+			alert("Created")
 		}
 	}
 
@@ -233,7 +258,7 @@ class PetRegistration extends React.Component{
 		            </label>
 		            <br/>
 		            <label> Last seen place:
-		               <input type="text" ref="Last_seen_place" className="def-input last-input" onChange={this.handleChange} />
+		               <input type="text" ref="Last_seen_place" id="txtautocomplete" className="def-input last-input" onChange={this.handleChange} />
 		            </label>
 		            <hr/>
 		            <input type="submit" value="save" className="submit-input" id="subin" onClick={this.showAnimation.bind(this)}/>
@@ -306,6 +331,7 @@ class PetRegistration extends React.Component{
 		)
 	}
 }
+
 
 render(
 	<Header />,
