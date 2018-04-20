@@ -270,6 +270,7 @@ class PetRegistration extends React.Component{
 	    )
 		return (
 			<div>
+
 			<div className="modalSelfMadeWindow">
 				<h1>Your request completed</h1>
 				<span>X</span>
@@ -318,11 +319,17 @@ class PetRegistration extends React.Component{
 				<div className="container">
 					<div className="wrapper">
 							<div className="information">
-								<h1>information</h1>
-							</div>
-							<div className="intro_image_finding">
-								<h1>Image</h1>
-							</div>
+								<h1>Problem we solve:</h1>
+								<h3>Were you ever affected by any kind of loneliness when all friends had
+								things to do and left you by yourself? There are pets to cheer you up!
+								
+								You could have possibly lost your pet. Do you remember the last place you saw it?
+								If you do - we are here to help you. And even if not - don`t worry, people will 
+								give effort to finding your pet according to your proposed reward.
+								</h3>
+
+								<h1 class="asda">Are you a seller?</h1>							
+								</div>
 					</div>
 				</div>
 			</div>

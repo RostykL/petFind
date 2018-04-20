@@ -26,7 +26,7 @@ const Map = compose(
       	InputLng: null,
         bounds: null,
         center: {
-          lat: 50.431782, lng: 30.516382
+          lat: 49.839683, lng: 24.029717  
 
         },
         markers: [],
@@ -108,8 +108,12 @@ const Map = compose(
     {props.markers.map((marker, index) =>
       <Marker key={index} position={marker.position} />
     )}
-        <Marker position={{ lat: 50.431782, lng: 30.516382 }}/>
-
+        <Marker position={{ lat: 49.838593, lng: 24.024610 }}/>
+        <Marker position={{ lat: 49.841629, lng: 24.024374 }}/>
+        <Marker position={{ lat: 49.843179, lng: 24.034888 }}/>
+        <Marker position={{ lat: 49.841028, lng: 24.027507 }}/>
+        <Marker position={{ lat: 49.839381, lng: 24.029374 }}/>
+        
   </GoogleMap>
 );
 
