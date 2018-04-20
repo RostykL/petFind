@@ -107,13 +107,14 @@ class PetRegistration extends React.Component{
 	  	.then(data => {
 	  		$(".created__class").show()
 	  		this.setState({
-	  			noErrorHandle: true,
+	  			noErrorHandle: 
+	  			false,
 	  		})
 	  	})
 	  	.catch(error => {
 	  		$(".created__class").show().text("ERROR").css("color", "red")
 	  		this.setState({
-	  			noErrorHandle: false,
+	  			noErrorHandle: true,
 	  		})
 	  		setTimeout( () => $(".created__class").hide())
 	  	});

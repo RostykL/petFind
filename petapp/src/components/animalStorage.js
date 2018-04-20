@@ -52,7 +52,6 @@ class StorageShow extends React.Component {
             <hr />
             <div className="desc-block"><span class="description">Description:</span>
               <span className="rel-pet-desc">{this.props.storage.description}</span>
-              <span className="rel-pet-desc storage-id">{this.props.storage.id}</span>
             </div>
             <div className="desc-block"><span class="description">last seen:</span>
               <span className="rel-pet-desc">{this.props.storage.last_seen_place}</span>
